@@ -8,14 +8,14 @@ const type = Special_Elite({ subsets: ['latin'], weight: '400', variable: '--f-t
 const black = UnifrakturCook({ subsets: ['latin'], weight: '700', variable: '--f-black' })
 
 export const metadata: Metadata = {
-  title: 'Every Frame Tells a Story — Mobile Photographer',
-  description: 'Portraits, weddings, events and video.',
+  title: 'Alik — мобилограф и монтажёр',
+  description: 'Мобильная съёмка, интервью, подкасты, реклама и вайны. Аскаров Аитбай (Alik), 3+ года опыта.',
 }
 export const viewport: Viewport = { themeColor: '#0b0705', width: 'device-width', initialScale: 1 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${type.variable} ${black.variable}`}>
+    <html lang="ru" className={`${display.variable} ${body.variable} ${type.variable} ${black.variable}`}>
       <body>
         {children}
         <div className="grain" aria-hidden />

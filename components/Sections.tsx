@@ -2,7 +2,7 @@
 import { useLayoutEffect, useRef, useState, type FormEvent } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { site, portfolio, type Category } from '../lib/site'
+import { site, portfolio, VERTICAL, type Category } from '../lib/site'
 
 /** Scroll effects for every .fx-* element on the page. */
 export function Reveal() {
@@ -26,7 +26,7 @@ export function Reveal() {
 
 /** Scrolling "EXTRA! EXTRA!" strip. */
 export function Ticker() {
-  const text = ['Extra! Extra!', ...site.services.map((s) => s.title), 'Read all about it'].join('  ✦  ')
+  const text = ['Срочный выпуск!', ...site.services.map((s) => s.title), site.experience].join('  ✦  ')
   return (
     <div className="ticker" aria-hidden>
       <div className="ticker-track">
@@ -38,7 +38,7 @@ export function Ticker() {
 
 const Head = ({ n, label, title }: { n: string; label: string; title: string }) => (
   <header className="head">
-    <div className="kick"><span>Section {n}</span><span>{label}</span><span>Vol. I</span></div>
+    <div className="kick"><span>Раздел {n}</span><span>{label}</span><span>Выпуск № 1</span></div>
     <i className="rule fx-rule" />
     <h2 className="fx-mask">{title}</h2>
   </header>
@@ -49,18 +49,18 @@ export function About() {
   return (
     <section id="about" className="sec paper">
       <div className="wrap">
-        <Head n="A" label="Profile" title={about.title} />
+        <Head n="A" label="Профиль" title={about.title} />
         <div className="about-grid">
           <figure className="fx-up">
             <div className="portrait">
               <div className="fx-par">
-                {about.portrait ? <img src={about.portrait} alt={site.name} /> : <span>Portrait<br />placeholder</span>}
+                {about.portrait ? <img src={about.portrait} alt={site.name} /> : <span>Здесь будет<br />портрет</span>}
               </div>
             </div>
-            <figcaption>Fig. 1 — {site.name}, {site.role}</figcaption>
+            <figcaption>Фото 1 — {site.name} («{site.nick}»), {site.role}</figcaption>
           </figure>
           <div>
-            <p className="byline fx-up">By {site.name}, Staff Photographer</p>
+            <p className="byline fx-up">Автор: {site.name} · {site.experience}</p>
             <div className="cols">
               {about.body.map((t, i) => <p className="fx-up" key={i}>{t}</p>)}
             </div>
@@ -74,7 +74,7 @@ export function About() {
 
 export function Portfolio() {
   const cats = Object.keys(portfolio) as Category[]
-  const [cat, setCat] = useState<Category>('Portraits')
+  const [cat, setCat] = useState<Category>(cats[0])
   const box = useRef<HTMLDivElement>(null)
 
   // photos "develop" out of the darkroom each time a tab opens
@@ -92,22 +92,22 @@ export function Portfolio() {
   return (
     <section id="portfolio" className="sec paper2">
       <div className="wrap">
-        <Head n="B" label="Photo Gallery" title="Selected work" />
+        <Head n="B" label="Галерея" title="Избранные работы" />
         <div className="tabs fx-up" role="tablist">
           {cats.map((c) => (
             <button key={c} role="tab" aria-selected={c === cat} className={c === cat ? 'on' : ''} onClick={() => setCat(c)}>{c}</button>
           ))}
         </div>
-        <div ref={box} className={`grid ${cat === 'Reels' ? 'reels' : ''}`} key={cat}>
+        <div ref={box} className={`grid ${VERTICAL.includes(cat) ? 'reels' : ''}`} key={cat}>
           {portfolio[cat].map((w, i) => (
             <figure className="plate" key={i}>
               <div className="frame">
                 {w.src ? (w.kind === 'video'
                   ? <video src={w.src} muted loop playsInline autoPlay preload="metadata" />
                   : <img src={w.src} alt={w.alt ?? `${cat} ${i + 1}`} loading="lazy" />)
-                  : <div className="ph"><b>№ {String(i + 1).padStart(2, '0')}</b><span>{cat === 'Reels' ? 'Your reel' : 'Your photograph'}</span></div>}
+                  : <div className="ph"><b>№ {String(i + 1).padStart(2, '0')}</b><span>{VERTICAL.includes(cat) ? 'Твой ролик' : 'Твоё видео'}</span></div>}
               </div>
-              <figcaption>Plate {String(i + 1).padStart(2, '0')} — {cat}</figcaption>
+              <figcaption>Работа {String(i + 1).padStart(2, '0')} — {cat}</figcaption>
             </figure>
           ))}
         </div>
@@ -120,11 +120,11 @@ export function Services() {
   return (
     <section id="services" className="sec paper">
       <div className="wrap">
-        <Head n="C" label="Classifieds" title="What I shoot" />
+        <Head n="C" label="Объявления" title="Что я делаю" />
         <div className="ads">
           {site.services.map((s, i) => (
             <article className="ad fx-up" key={s.title}>
-              <small>Offered · № {String(i + 1).padStart(2, '0')}</small>
+              <small>Услуга · № {String(i + 1).padStart(2, '0')}</small>
               <h3>{s.title}</h3>
               <p>{s.text}</p>
             </article>
@@ -150,7 +150,7 @@ export function Booking() {
         body: JSON.stringify(Object.fromEntries(new FormData(form))),
       })
       const j = await res.json().catch(() => ({}))
-      if (!res.ok) throw new Error(j.error || 'Something went wrong.')
+      if (!res.ok) throw new Error(j.error || 'Что-то пошло не так.')
       setState({ s: 'ok' })
       form.reset()
     } catch (err) {
@@ -161,23 +161,23 @@ export function Booking() {
   return (
     <section id="booking" className="sec paper2">
       <div className="wrap">
-        <Head n="D" label="Reservations" title="Reserve your session" />
+        <Head n="D" label="Запись" title="Записаться на съёмку" />
         <form onSubmit={submit} className="form fx-up">
-          <div className="form-top"><b>WANTED:</b> one unforgettable day. <b>Apply within.</b></div>
-          <label>Name<input name="name" required autoComplete="name" /></label>
-          <label>Phone<input name="phone" type="tel" required autoComplete="tel" /></label>
-          <label className="full">Service
+          <div className="form-top"><b>ИЩУ:</b> ваш следующий проект. <b>Оставьте заявку.</b></div>
+          <label>Имя<input name="name" required autoComplete="name" /></label>
+          <label>Телефон<input name="phone" type="tel" required autoComplete="tel" /></label>
+          <label className="full">Услуга
             <select name="service" required defaultValue="">
-              <option value="" disabled>Choose a service</option>
+              <option value="" disabled>Выберите услугу</option>
               {site.services.map((s) => <option key={s.title}>{s.title}</option>)}
             </select>
           </label>
-          <label>Date<input name="date" type="date" min={today} required /></label>
-          <label>Time<input name="time" type="time" required /></label>
-          <label className="full">Message<textarea name="message" rows={4} /></label>
-          <button className="btn full" disabled={state.s === 'sending'}>{state.s === 'sending' ? 'Sending…' : 'Submit request'}</button>
+          <label>Дата<input name="date" type="date" min={today} required /></label>
+          <label>Время<input name="time" type="time" required /></label>
+          <label className="full">Сообщение<textarea name="message" rows={4} /></label>
+          <button className="btn full" disabled={state.s === 'sending'}>{state.s === 'sending' ? 'Отправляю…' : 'Отправить заявку'}</button>
           <p className={`status full ${state.s}`} role="status">{state.s === 'err' && state.msg}</p>
-          {state.s === 'ok' && <div className="stamp">Received</div>}
+          {state.s === 'ok' && <div className="stamp">Принято</div>}
         </form>
       </div>
     </section>
@@ -187,15 +187,15 @@ export function Booking() {
 export function Contact() {
   const c = site.contact
   const items = [
-    ['Instagram', c.instagram, c.instagram, '@your_instagram'],
-    ['Telegram', c.telegram, c.telegram, '@your_telegram'],
+    ['Instagram', c.instagram, c.instagram, '@твой_instagram'],
+    ['Telegram', c.telegram, c.telegram, '@твой_telegram'],
     ['WhatsApp', c.whatsapp, c.whatsapp, '+000 00 000 00 00'],
-    ['Email', c.email, c.email && `mailto:${c.email}`, 'hello@yourdomain.com'],
+    ['Почта', c.email, c.email && `mailto:${c.email}`, 'почта@example.com'],
   ]
   return (
     <section id="contact" className="sec ink">
       <div className="wrap">
-        <Head n="E" label="Correspondence" title="Letters to the editor" />
+        <Head n="E" label="Связь" title="Напишите мне" />
         <ul className="contact">
           {items.map(([k, val, href, ph]) => (
             <li className="fx-up" key={k}>
@@ -204,7 +204,7 @@ export function Contact() {
             </li>
           ))}
         </ul>
-        <p className="foot">© {new Date().getFullYear()} {site.name} · All rights reserved · Printed in light</p>
+        <p className="foot">© {new Date().getFullYear()} {site.name} · Все права защищены</p>
       </div>
     </section>
   )

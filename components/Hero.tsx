@@ -10,9 +10,9 @@ import type { Progress } from './CameraScene'
 const CameraScene = dynamic(() => import('./CameraScene'), { ssr: false })
 
 const CHAPTERS = [
-  ['I', 'The Body', 'Leather and steel, built to last a lifetime.'],
-  ['II', 'The Lens', 'Precision glass that turns light into memory.'],
-  ['III', 'The Viewfinder', 'Every story begins by looking through.'],
+  ['I', 'Съёмка', 'Любая задача — на телефон, без лишнего оборудования.'],
+  ['II', 'Кадр', 'Свет, композиция и звук решают больше, чем цена камеры.'],
+  ['III', 'Монтаж', 'Ритм и цвет превращают материал в историю.'],
 ]
 
 function Loader() {
@@ -91,7 +91,7 @@ export default function Hero() {
         </div>
       ))}
       <div className="h-hint">
-        <span>Scroll</span>
+        <span>Листай</span>
         <i />
       </div>
       <div className="iris" aria-hidden />

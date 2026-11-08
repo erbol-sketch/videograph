@@ -1,44 +1,47 @@
 // ─────────────────────────────────────────────────────────────
-//  EDIT EVERYTHING HERE. All copy, links and portfolio items live
-//  in this one file. Empty strings show tasteful placeholders.
+//  ВСЁ РЕДАКТИРУЕТСЯ ЗДЕСЬ: тексты, ссылки, портфолио.
+//  Пустая строка '' = на сайте покажется заглушка.
 // ─────────────────────────────────────────────────────────────
 export const MODEL_URL = '/models/camera.glb'
 
 export const site = {
-  name: 'Your Name',
-  role: 'Mobile Photographer',
-  headline: ['EVERY FRAME', 'TELLS A STORY'],
+  name: 'Аскаров Аитбай',
+  nick: 'Alik', // показывается в логотипе
+  role: 'Мобилограф · Монтажёр',
+  experience: '3+ года опыта',
+  headline: ['СНИМАЮ НА ТЕЛЕФОН', 'ВЫГЛЯДИТ КАК КИНО'],
   about: {
-    title: 'The person behind the lens',
-    // Replace with your own words:
+    title: 'Человек за камерой',
     body: [
-      'Write a short introduction here: who you are, how you started, and what you love to capture.',
-      'A second paragraph can describe your approach, your style, and what clients can expect.',
+      'Меня зовут Аитбай Аскаров, но все называют меня Алик. Я мобилограф и монтажёр: снимаю и собираю ролики на телефон так, чтобы их хотелось досмотреть до конца. Больше 3 лет в профессии — за это время понял, что хорошая картинка делается не дорогой техникой, а светом, кадром и ритмом монтажа.',
+      'Работаю с интервью, подкастами, рекламой и короткими вертикальными видео (вайны, Reels, Shorts). Сам снимаю, сам монтирую, сам делаю цвет и звук — вы общаетесь с одним человеком, а не с командой посредников. Быстро, аккуратно и под вашу задачу.',
     ],
-    portrait: '', // e.g. '/images/portrait.jpg' (put the file in /public/images)
+   portrait: '/images/portrait.jpg',
   },
   services: [
-    { title: 'Photoshoots', text: 'Describe your photoshoot offer here.' },
-    { title: 'Weddings', text: 'Describe your wedding coverage here.' },
-    { title: 'Events', text: 'Describe your event coverage here.' },
-    { title: 'Commercial Content', text: 'Describe your commercial work here.' },
-    { title: 'Video Shooting', text: 'Describe your video / reels offer here.' },
+    { title: 'Мобильная съёмка', text: 'Любая съёмка на телефон: события, бизнес, люди, места. Стабилизация, свет и чистый звук — без громоздкого оборудования.' },
+    { title: 'Интервью', text: 'Съёмка интервью и видеовизиток: ставлю свет и звук, веду кадр, монтирую с титрами и вставками.' },
+    { title: 'Подкасты', text: 'Видеоподкасты в несколько ракурсов, чистый звук и монтаж. Плюс нарезки для Reels, Shorts и TikTok.' },
+    { title: 'Реклама', text: 'Рекламные ролики для бизнеса и брендов: идея, съёмка, монтаж, цвет, музыка — от задачи до готового видео.' },
+    { title: 'Вайны и Reels', text: 'Короткие вертикальные видео, которые цепляют с первой секунды: сценарий, съёмка, динамичный монтаж.' },
   ],
-  // Contact: leave '' to show a placeholder. Use full values, e.g. 'https://instagram.com/you'
+  // Контакты: оставь '' — покажется заглушка. Пиши полные ссылки: 'https://instagram.com/ник'
   contact: {
-    instagram: '',
-    telegram: '',
-    whatsapp: '',
+    instagram: 'aitbay.askarov',
+    telegram: '@askarovalibaba',
+    whatsapp: '+99897 268 67 89',
     email: '',
   },
 }
 
-export type Category = 'Portraits' | 'Weddings' | 'Events' | 'Reels'
+export type Category = 'Интервью' | 'Подкасты' | 'Реклама' | 'Вайны'
 export type Work = { src?: string; kind?: 'image' | 'video'; alt?: string }
-// Add your files to /public/work and list them here. Empty {} = placeholder frame.
+// Вертикальные (9:16) категории:
+export const VERTICAL: Category[] = ['Вайны']
+// Файлы клади в /public/work и перечисляй тут. Пустой {} = рамка-заглушка.
 export const portfolio: Record<Category, Work[]> = {
-  Portraits: [{}, {}, {}, {}, {}, {}],
-  Weddings: [{}, {}, {}, {}, {}, {}],
-  Events: [{}, {}, {}, {}, {}, {}],
-  Reels: [{}, {}, {}, {}],
+  'Интервью': [{}, {}, {}, {}, {}, {}],
+  'Подкасты': [{}, {}, {}, {}, {}, {}],
+  'Реклама': [{}, {}, {}, {}, {}, {}],
+  'Вайны': [{}, {}, {}, {}],
 }
